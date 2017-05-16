@@ -1,9 +1,11 @@
-require 'sptrans/arrival_forecast_search'
+require 'json'
 
 class HomeController < ApplicationController
-  def arrival_forecast
-    response = SPTrans::ArrivalForecastSearch.new.call(params[:stop_code])
 
-    render json: response
+  def posicao_veiculos
+    if params[:linha].present?
+      retorno = APIPosicao::posicao_veiculos params[:linha]
+      render json: retorno
+    end
   end
 end
